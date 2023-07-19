@@ -1,0 +1,7 @@
+main <hello-world.lua:0,0> (5 instructions at 0x60000255c080)
+0+ params, 2 slots, 1 upvalue, 0 locals, 2 constants, 0 functions
+	1	[1]	VARARGPREP	0
+	2	[1]	GETTABUP 	0 0 0	; _ENV "print"
+	3	[1]	LOADK    	1 1	; "hello world"
+	4	[1]	CALL     	0 2 1	; 1 in 0 out
+	5	[1]	RETURN   	0 1 1	; 0 out

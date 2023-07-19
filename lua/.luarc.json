@@ -1,0 +1,11 @@
+{
+    "workspace.library": [
+        "/Users/linran/dev/neovim/nvim-macos/share/nvim/runtime",
+        "/Users/linran/.local/share/lunarvim/lvim",
+        "/Users/linran/.local/share/lunarvim/site/pack/lazy/opt/neodev.nvim/types/stable",
+        "${3rd}/busted/library",
+        "${3rd}/luassert/library",
+        "${3rd}/luv/library",
+        "/Users/linran/.local/share/nvim/mason/packages/lua-language-server/meta/0b1aa8b8"
+    ]
+}
