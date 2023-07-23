@@ -15,6 +15,9 @@ run *args:
     cargo run -- "$@"
 alias r := run
 
+fmt:
+    cargo fmt
+
 release:
     cargo build --release
 
