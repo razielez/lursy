@@ -1,5 +1,5 @@
 # Lursy
-a lua parser impl by rust.
+a lua interpreter impl by rust.
 
 
 ## Ref

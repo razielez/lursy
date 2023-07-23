@@ -1,7 +1,7 @@
 use std::fs::File;
 use std::io::{Read, Seek, SeekFrom};
 
-#[derive(Debug)]
+#[derive(Debug,PartialEq)]
 pub enum Token {
     Name(String),
     String(String),
@@ -60,6 +60,12 @@ impl Lex {
     fn read_char(&mut self) -> char {
         let mut buf: [u8; 1] = [0];
         if self.input.read(&mut buf).unwrap() == 1 {
+            // let x = std::str::from_utf8(&buf).ok()
+            //     .and_then(|s| s.chars().next());
+            // return match x {
+            //     Some(ch) => ch,
+            //     None => '\0',
+            // };
             buf[0] as char
         } else {
             '\0'
@@ -72,6 +78,7 @@ impl Lex {
 mod tests {
     use std::env;
     use std::fs::File;
+
     use crate::lex::{Lex, Token};
 
     #[test]
