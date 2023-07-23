@@ -11,7 +11,11 @@ pub struct ExeState {
 }
 
 fn fn_print(state: &mut ExeState) -> i32 {
-    println!("{:?}", state.stack[1]);
+    let v = &state.stack[1];
+    match v {
+        Value::String(s) => println!("{}", s),
+        _ => println!("{:?}", v),
+    };
     0
 }
 
@@ -32,22 +36,22 @@ impl ExeState {
                     let name = &proto.constants[x as usize];
                     if let Value::String(key) = name {
                         let v = self.globals.get(key).unwrap_or(&Value::Nil).clone();
-                        self.set_stack(idx.clone(), v);
+                        self.set_stack(idx, v);
                     } else {
                         panic!("invalid global key: {name:?}");
                     };
                 }
                 ByteCode::LoadConst(idx, x) => {
                     let v = proto.constants[x as usize].clone();
-                    self.set_stack(idx.clone(), v);
+                    self.set_stack(idx, v);
                 }
                 ByteCode::Call(func, _) => {
-                    let func = self.stack[func as usize].clone();
+                    let func = &self.stack[func as usize];
                     if let Value::Function(f) = func {
-                        let ret = f(self);
-                        self.stack.truncate(self.stack.len() - 1);
-                        self.stack.push(Value::Nil);
-                    }
+                        f(self);
+                    } else {
+                        panic!("invalid function: {func:?}")
+                    };
                 }
             }
         }
