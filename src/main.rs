@@ -12,7 +12,7 @@ mod args;
 
 fn main() {
     let args = Args::parse();
-    let proto = parse::load(File::open(Path::new(&args.f)).unwrap());
+    let proto = parse::load(File::open(Path::new(&args.l)).unwrap());
     vm::ExeState::new().execute(&proto);
 }
 
