@@ -1,8 +1,101 @@
+use std::fmt::{Debug, Formatter};
 use std::fs::File;
 use std::io::{Read, Seek, SeekFrom};
 
-#[derive(Debug,PartialEq)]
+#[derive(Debug, PartialEq)]
 pub enum Token {
+    // keywords
+    And,
+    Break,
+    Do,
+    Else,
+    Elseif,
+    End,
+    False,
+    For,
+    Function,
+    Goto,
+    If,
+    In,
+    Local,
+    Nil,
+    Not,
+    Or,
+    Repeat,
+    Return,
+    Then,
+    True,
+    Until,
+    While,
+    // +
+    Add,
+    // -
+    Sub,
+    // *
+    Mul,
+    // /
+    Div,
+    // %
+    Mod,
+    // ^
+    Pow,
+    // #
+    Len,
+    // &
+    BitAnd,
+    // ~
+    BitXor,
+    // |
+    BitOr,
+    // <<
+    ShiftLeft,
+    // >>
+    ShiftRight,
+    // //
+    Idiv,
+    // ==
+    Equal,
+    // ~=
+    NotEq,
+    //    <=
+    LesEq,
+    // >=
+    GreEq,
+    // <
+    Less,
+    // >
+    Greater,
+    // =
+    Assign,
+    // (
+    ParL,
+    // )
+    ParR,
+    // {
+    CurlyL,
+    // }
+    CurlyR,
+    // [
+    SqurL,
+    // ]
+    SqurR,
+    // ::
+    DoubColon,
+    // ;
+    SemiColon,
+    // :
+    Colon,
+    // ,
+    Comma,
+    // .
+    Dot,
+    // ..
+    Concat,
+    // ...
+    Dots,
+    // constant values
+    Integer(i64),
+    Float(f64),
     Name(String),
     String(String),
     Eos,
@@ -24,7 +117,8 @@ impl Lex {
             ' ' | '\r' | '\n' | '\t' => self.next(),
             '\0' => Token::Eos,
 
-            '"' => { // literal String
+            '"' => {
+                // literal String
                 let mut s = String::new();
                 loop {
                     match self.read_char() {
@@ -36,7 +130,8 @@ impl Lex {
                 Token::String(s)
             }
 
-            'A'..='Z' | 'a'..='z' | '_' => { // Name
+            'A'..='Z' | 'a'..='z' | '_' => {
+                // Name
                 let mut name = String::new();
                 name.push(ch);
                 loop {
@@ -73,7 +168,6 @@ impl Lex {
     }
 }
 
-
 #[cfg(test)]
 mod tests {
     use std::env;
@@ -98,5 +192,3 @@ mod tests {
         }
     }
 }
-
-

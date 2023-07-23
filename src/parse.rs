@@ -6,7 +6,7 @@ use crate::value::Value;
 
 #[derive(Debug)]
 pub struct ParseProto {
-pub constants: Vec<Value>,
+    pub constants: Vec<Value>,
     pub byte_codes: Vec<ByteCode>,
 }
 
@@ -18,7 +18,7 @@ pub fn load(input: File) -> ParseProto {
         match lex.next() {
             Token::Name(n) => {
                 constants.push(Value::String(n));
-                byte_codes.push(ByteCode::GetGlobal(0,( constants.len() - 1) as u8));
+                byte_codes.push(ByteCode::GetGlobal(0, (constants.len() - 1) as u8));
                 if let Token::String(x) = lex.next() {
                     constants.push(Value::String(x));
                     byte_codes.push(ByteCode::LoadConst(1, (constants.len() - 1) as u8));
@@ -33,15 +33,17 @@ pub fn load(input: File) -> ParseProto {
     }
     dbg!(&constants);
     dbg!(&byte_codes);
-    ParseProto { constants, byte_codes }
+    ParseProto {
+        constants,
+        byte_codes,
+    }
 }
-
 
 #[cfg(test)]
 mod tests {
+    use crate::parse;
     use std::env;
     use std::fs::File;
-    use crate::parse;
 
     #[test]
     fn test_load() {
@@ -51,5 +53,4 @@ mod tests {
         let proto = parse::load(file);
         dbg!(proto);
     }
-
 }
